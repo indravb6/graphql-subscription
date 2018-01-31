@@ -1,0 +1,18 @@
+type Book {
+    id: ID!
+    title: String!
+    isbn: String!
+    pageCount: Int
+    author: Author
+}
+type Author {
+    id: ID!
+    firstName: String!
+    lastName: String!
+}
+schema {
+    query: Query
+}
+type Query {
+    bookAdded: Book!
+}
