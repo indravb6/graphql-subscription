@@ -3,8 +3,6 @@ import javax.persistence.*;
 @Entity
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
     private String firstName;
     private String lastName;
@@ -16,7 +14,8 @@ public class Author {
         this.id = id;
     }
 
-    public Author(String firstName, String lastName) {
+    public Author(Long id, String firstName, String lastName) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }

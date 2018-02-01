@@ -4,11 +4,13 @@ import com.coxautodev.graphql.tools.SchemaParser;
 import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import graphql.schema.GraphQLSchema;
+import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import ping.pubsub.model.Author;
 import ping.pubsub.model.Book;
 import ping.pubsub.model.ResponseInfo;
@@ -64,22 +66,23 @@ public class GreetingController {
     }
 
     @PostMapping("/addAuthor")
-    public String addAuthor(@RequestParam("firstName") String firstName,
+    @ResponseStatus(value = HttpStatus.OK)
+    public void addAuthor(@RequestParam("id") Long id,
+                          @RequestParam("firstName") String firstName,
                           @RequestParam("lastName") String lastName){
-        Author author = new Author(firstName, lastName);
+        Author author = new Author(id, firstName, lastName);
         authorRepository.save(author);
-        return "";
     }
 
     @PostMapping("/addBook")
-    public String addAuthor(@RequestParam("title") String title,
+    @ResponseStatus(value = HttpStatus.OK)
+    public void addAuthor(@RequestParam("title") String title,
                             @RequestParam("isbn") String isbn,
                             @RequestParam("pageCount") int pageCount,
                             @RequestParam("author") Long authorId){
         Book book = new Book(title, isbn, pageCount, authorRepository.findById(authorId));
         bookRepository.save(book);
         subject.onNext(book);
-        return "";
     }
 
 }

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit</title>
+    <script src="/jquery-3.3.1.min.js"></script>
+    <link href="/bootstrap.min.css" rel="stylesheet"/>
+    <script src="/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#submitAuthor").click(function () {
+                $.ajax({
+                    dataType: "json",
+                    method: "POST",
+                        url: "/addAuthor",
+                    data: {
+                        "id": $("#id").val(),
+                        "firstName": $("#firstName").val(),
+                        "lastName": $("#lastName").val()
+                    }
+                });
+                alert("Added Successfully");
+            });
+            $("#submitBook").click(function () {
+                $.ajax({
+                    dataType: "json",
+                    method: "POST",
+                    url: "/addBook",
+                    data: {
+                        "title": $("#title").val(),
+                        "isbn": $("#isbn").val(),
+                        "pageCount": $("#pageCount").val(),
+                        "author": $("#author").val()
+                    }
+                });
+                alert("Added Successfully");
+            });
+        });
+    </script>
+</head>
+<body style="padding-top:30px;">
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Author</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="id">ID?</label>
+                        <input type="text" id="id" class="form-control" value="1">
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label for="firstName">First name?</label>
+                        <input type="text" id="firstName" class="form-control" value="Steven">
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label for="lastName">Last name?</label>
+                        <input type="text" id="lastName" class="form-control" value="Halim">
+                    </div>
+                    <br/>
+                    <button id="submitAuthor" class="btn btn-primary">Add Author</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">Book</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="title">Title?</label>
+                        <input type="text" id="title" class="form-control" value="Competitive Programming 3">
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label for="isbn">ISBN?</label>
+                        <input type="text" id="isbn" class="form-control" value="9781312796645">
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label for="pageCount">Page Count?</label>
+                        <input type="text" id="pageCount" class="form-control" value="448">
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label for="author">Author ID?</label>
+                        <input type="text" id="author" class="form-control" value="1">
+                    </div>
+                    <br/>
+                    <button id="submitBook" class="btn btn-success">Add Book</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
